@@ -7,6 +7,8 @@ template <class DataType>
 class DanhSachBanDoc;
 template <class DataType>
 class DanhSachSach;
+template <class DataType>
+class DanhSachPhieuMuon;
 
 template <class DataType>
 class Node {
@@ -14,6 +16,7 @@ class Node {
 	friend class DanhSachBanDoc<DataType>;
 	friend class DanhSachNhanVien<DataType>;
 	friend class DanhSachSach<DataType>;
+	friend class DanhSachPhieuMuon<DataType>;
 	DataType _data;
 	Node* _pNext;
 public:
