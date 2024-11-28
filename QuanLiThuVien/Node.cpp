@@ -1,6 +1,6 @@
 ﻿#include "Node.h"
 #include "Header.h"
-
+#include "DanhSachPhieuMuon.h"
 /********************************************
 * @Description Hàm khởi tạo một Node có giá trị là data
 * @parameter Giá trị data
