@@ -8,15 +8,20 @@
 #include "DanhSachBanDoc.cpp"
 #include "DanhSachNhanVien.cpp"
 #include "DanhSachSach.cpp"
+#include "DanhSachPhieuMuon.h"
+#include "PhieuMuon.h"
+#include "DanhSachPhieuMuon.cpp"
 
 int main() {
 	DanhSachBanDoc<BanDoc> dsBanDoc;
 	DanhSachNhanVien<NhanVien> dsNhanVien;
 	DanhSachSach<Sach> dsSach;
+	DanhSachPhieuMuon<PhieuMuon> dsPhieuMuon;
 
 	dsBanDoc.xuLyDocFile();
 	dsNhanVien.xuLyDocFile();
 	dsSach.docFile();
+	dsPhieuMuon.docFile("PhieuMuon.txt");
 
 	NhanVien* nhanVienHienTai = NULL;
     // ========================= Xu li chuc nang dang nhap ==================================
@@ -154,12 +159,22 @@ int main() {
 				{
 				case 1:
 					//Them phieu muon...
+					system("cls");
+					setColor(4);
+					dsPhieuMuon.muon();
+					system("pause");
+					system("cls");
 					break;
 				case 2:
 					//Xoa phieu muon....
+					system("cls");
+					dsPhieuMuon.tra();
 					break;
 				case 3:
 					//Thong ke phieu muon....
+					system("cls");
+					setColor(4);
+					dsPhieuMuon.xuatConsole();
 					break;
 				case 4:
 					exit(1);
