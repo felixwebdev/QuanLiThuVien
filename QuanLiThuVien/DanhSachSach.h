@@ -6,9 +6,10 @@ template<class Sach>
 class DanhSachSach : public LinkedList<Sach> {
 public:
 	void docFile();
-	void xuatFile();
+	void updateFile();
+	void themVaoFile(Node<Sach>* sachMoi);
+	void themSach(Sach sachMoi);
 	void display();
-	Node<Sach>* timSach(string masach);
-	Node<Sach>* timSachPre(Node<Sach>* sach);
+	Sach* timSach(string masach);
 	void xoaSach(string masach);
 };

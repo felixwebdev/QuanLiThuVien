@@ -38,4 +38,5 @@ public:
     void setNgayNhapKho(string ngaynhapkho);
     void setTinhTrangSach(int tinhtrangsach);
     void display();
+    string toString();
 };

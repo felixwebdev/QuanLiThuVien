@@ -196,7 +196,7 @@ bool checkIsNumberString(string s) {
 
 
 /********************************************
-* @Description Hàm hiển thị menu đăng nhập 
+* @Description Hàm hiển thị menu đăng nhập
 * @parameter Chuỗi username và password
 ********************************************/
 void DangNhap(string& username, string& password) {
@@ -315,7 +315,7 @@ int mainMenu() {
 	setColor(7);
 	string choose;
 	cout << "\t\t\t\tNhap thao tac muon chon: ";
-	getline(cin,choose);
+	getline(cin, choose);
 	while (choose.length() == 0) {
 		cout << "\t\t\t\tVui long nhap thao tac: ";
 		getline(cin, choose);
@@ -641,11 +641,10 @@ int subMenuBanDoc() {
 bool XacNhan(string tab, string mess) {
 	string strB;
 	setColor(4);
-	cout << tab << mess <<" (yes / no) ? " << endl;
+	cout << tab << mess << " (yes / no) ? " << " ";
 	setColor(7);
-	cout << tab;
 	getline(cin, strB);
-	while(strB.length() == 0 || convertUpperCase(strB) != "YES" && convertUpperCase(strB) != "NO") {
+	while (strB.length() == 0 || convertUpperCase(strB) != "YES" && convertUpperCase(strB) != "NO") {
 		setColor(4);
 		cout << tab << "Vui long nhap dung (yes / no) ";
 		setColor(7);
