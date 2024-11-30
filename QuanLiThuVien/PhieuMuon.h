@@ -12,6 +12,7 @@ private:
 	string NgayTra;
 	int TinhTrangPhieuMuon;
 public:
+	PhieuMuon(const PhieuMuon& p);
 	PhieuMuon(string MBD = "", string MS = "");
 	static int getSoPhieuMuon();
 	int getMaPhieu();
