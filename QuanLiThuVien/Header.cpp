@@ -1,4 +1,4 @@
-﻿#include "Header.h"
+#include "Header.h"
 
 /********************************************
 * @Description Hàm đổi màu chữ console
@@ -84,25 +84,25 @@ string getCurrentDate() {
 	stringstream years;
 	years << (1900 + ltm->tm_year);
 	years >> year;
-	stringstream hours;
+	/*stringstream hours;
 	hours << ltm->tm_hour;
 	hours >> hour;
 	stringstream mins;
 	mins << ltm->tm_min;
-	mins >> min;
+	mins >> min;*/
 	if (1 + ltm->tm_mon < 10) {
 		month = "0" + month;
 	}
 	if (ltm->tm_mday < 10) {
 		day = "0" + day;
 	}
-	if (ltm->tm_hour < 10) {
+	/*if (ltm->tm_hour < 10) {
 		hour = "0" + hour;
 	}
 	if (ltm->tm_min < 10) {
 		min = "0" + min;
-	}
-	result = day + "/" + month + "/" + year + " " + hour + ":" + min;
+	}*/
+	result = day + "/" + month + "/" + year /*+ " " + hour + ":" + min*/;
 	return result;
 }
 
@@ -195,8 +195,9 @@ bool checkIsNumberString(string s) {
 }
 
 
+
 /********************************************
-* @Description Hàm hiển thị menu đăng nhập
+* @Description Hàm hiển thị menu đăng nhập 
 * @parameter Chuỗi username và password
 ********************************************/
 void DangNhap(string& username, string& password) {
@@ -315,7 +316,7 @@ int mainMenu() {
 	setColor(7);
 	string choose;
 	cout << "\t\t\t\tNhap thao tac muon chon: ";
-	getline(cin, choose);
+	getline(cin,choose);
 	while (choose.length() == 0) {
 		cout << "\t\t\t\tVui long nhap thao tac: ";
 		getline(cin, choose);
@@ -634,17 +635,18 @@ int subMenuBanDoc() {
 }
 
 /********************************************
-* @Description Hàm xử lí các tác vụ quyết định của người dùng
+* @Description Hàm xử lí các tác vụ xác nhận của người dùng
 * @parameter số lần tab, nội dung cần xác nhận
-* @return True nếu người dùng chọn yes, ngược lại là false
+* @return Trả về kết quả đúng hay sai dựa vào kết quả của người dùng
 ********************************************/
 bool XacNhan(string tab, string mess) {
 	string strB;
 	setColor(4);
-	cout << tab << mess << " (yes / no) ? " << " ";
+	cout << tab << mess <<" (yes / no) ? " << endl;
 	setColor(7);
+	cout << tab;
 	getline(cin, strB);
-	while (strB.length() == 0 || convertUpperCase(strB) != "YES" && convertUpperCase(strB) != "NO") {
+	while(strB.length() == 0 || convertUpperCase(strB) != "YES" && convertUpperCase(strB) != "NO") {
 		setColor(4);
 		cout << tab << "Vui long nhap dung (yes / no) ";
 		setColor(7);
@@ -654,30 +656,91 @@ bool XacNhan(string tab, string mess) {
 	return 0;
 }
 
-/********************************************
-* @Description Hàm kiểm tra một chuỗi có phải là số không
-* @parameter Một chuỗi cần kiẻm tra
-* @return True nếu là số, False nếu không phải
-********************************************/
-bool isDigit(string strInt) {
-	if (strInt.empty()) return false;
-	for (auto x : strInt) {
-		if (!isdigit(x)) return false;
+	/********************************************
+	* @Description Hàm kiểm tra một chuỗi có phải là số không
+	* @parameter Một chuỗi cần kiẻm tra
+	* @return Trả về kết quả một chuỗi có phải số hay không
+	********************************************/
+	bool isDigit(string strInt) {
+		for (int i = 0; i < strInt.length(); i++) {
+			if (!isdigit(strInt[i])) return 0;
+		}
+		return 1;
 	}
-	return true;
+
+/********************************************
+* @Description Hàm thêm một số ngày vào một ngày cụ thể.
+* @parameter day Ngày ban đầu.
+* @parameter month Tháng ban đầu.
+* @parameter year Năm ban đầu. 
+* @parameter daysToAdd Số ngày cần thêm vào.
+* @return Trả về một chuỗi biểu diễn ngày mới dưới định dạng "dd/mm/yyyy".
+********************************************/
+
+string addDaysToDate(int day, int month, int year, int addDays) {
+	tm date = { 0 };
+	date.tm_mday = day;
+	date.tm_mon = month - 1; 
+	date.tm_year = year - 1900;
+
+	time_t rawTime = mktime(&date);
+	rawTime += addDays * 24 * 3600; 
+
+	tm* newDate = localtime(&rawTime);
+	stringstream result;
+	result << setfill('0') << setw(2) << newDate->tm_mday << "/"
+		<< setfill('0') << setw(2) << (newDate->tm_mon + 1) << "/"
+		<< (newDate->tm_year + 1900);
+	return result.str();
 }
 
 /********************************************
-* @Description Hàm xử lí các tác vụ xác nhận của người dùng
-* @parameter số lần thụt lề
-* @return True nếu người dùng bấm phím bất kì, false nếu bấm ESC
+* @Description Hàm kiểm tra xem mã sách có tồn tại trong file Sach.txt hay không
+* @parameter maSach: Một chuỗi chứa mã sách cần kiểm tra
+* @return Trả về true nếu mã sách tồn tại, ngược lại trả về false
 ********************************************/
-bool isContinue(string ntab) {
-	char c;
-	setColor(2);
-	cout << ntab << "Nhan phim ESC de thoat hoac phim bat ki de tiep tuc!";
-	setColor(7);
-	c = getch();
-	if (c == 27) return 0;
-	return 1;
+
+bool kiemTraSachTonTai(const string& maSach) {
+	ifstream file("Sach.txt"); 
+	string line;
+
+	while (getline(file, line)) {
+		
+		stringstream ss(line);
+		string maSachTu ;
+		getline(ss, maSachTu, '|'); 
+
+		if (maSachTu == maSach) { 
+			file.close();
+			return true; 
+		}
+	}
+	file.close();
+	return false; 
 }
+
+/********************************************
+* @Description Hàm kiểm tra xem mã bạn đọc có tồn tại trong file BanDoc.txt hay không
+* @parameter maBanDoc: Một chuỗi chứa mã bạn đọc cần kiểm tra
+* @return Trả về true nếu mã bạn đọc tồn tại, ngược lại trả về false
+********************************************/
+
+bool kiemTraBanDocTonTai(const string& maBanDoc) {
+	ifstream file("BanDoc.txt"); 
+	string line;
+
+	while (getline(file, line)) {
+		stringstream ss(line);
+		string maBanDocTuDòng;
+		getline(ss, maBanDocTuDòng, '|'); 
+
+		if (maBanDocTuDòng == maBanDoc) { 
+			file.close();
+			return true; 
+		}
+	}
+	file.close();
+	return false; 
+}
+
+
