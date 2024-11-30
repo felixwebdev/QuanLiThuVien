@@ -67,7 +67,12 @@ int main() {
 			iCount++;
 			system("cls");
 			setColor(4);
-			cout << endl << "\t\t\tSai tai khoan hoac mat khau! Ban con " << 3 - iCount << " lan nhap. \n \t\t\tNhan phim ESC de thoat hoac phim Enter 2 lan de tiep tuc dang nhap!" << endl;
+			if (3 - iCount > 0) {
+			 cout << endl << "\t\t\tSai tai khoan hoac mat khau! Ban con " << 3 - iCount << " lan nhap. \n \t\t\tNhan phim ESC de thoat hoac phim bat ki de tiep tuc dang nhap!" << endl;
+			}
+			else {
+			 cout << endl << "\t\t\tSai tai khoan hoac mat khau! Ban da het luot dang nhap!. \n \t\t\tNhan phim phim bat ki de thoat!" << endl;
+			}
 			setColor(7);
 			//Lay du lieu khi nguoi dung nhan phim bat ki
 			c = getch();
