@@ -1,5 +1,13 @@
 #include "PhieuMuon.h"
 
+PhieuMuon::PhieuMuon(const PhieuMuon& p) {
+    MaPhieu = p.MaPhieu;
+	MaBanDoc = p.MaBanDoc;
+	MaSach = p.MaSach;
+	NgayMuon = p.NgayMuon;
+	NgayTra = p.NgayTra;
+	TinhTrangPhieuMuon = p.TinhTrangPhieuMuon;
+}
 
 PhieuMuon::PhieuMuon(string MBD, string MS)
     : MaBanDoc(MBD), MaSach(MS), TinhTrangPhieuMuon(1){
