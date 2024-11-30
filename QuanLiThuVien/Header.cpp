@@ -452,7 +452,7 @@ int subMenuPhieuMuon() {
 	cout << "\t";
 
 	setColor(7);
-	cout << "1. Them phieu muon.";
+	cout << "1. Muon sach.";
 	setColor(14);
 	cout << "\t\t\t";
 	cout << "|";
@@ -462,7 +462,7 @@ int subMenuPhieuMuon() {
 	cout << "\t";
 
 	setColor(7);
-	cout << "2. Xoa phieu muon.";
+	cout << "2. Tra sach.";
 	setColor(14);
 	cout << "\t\t\t";
 	cout << "|";
