@@ -1,4 +1,4 @@
-#include "Header.h"
+﻿#include "Header.h"
 #include "BanDoc.h"
 #include "NhanVien.h"
 #include "Sach.h"
@@ -23,8 +23,8 @@ int main() {
 	dsPhieuMuon.docFile("PhieuMuon.txt");
 
 	NhanVien* nhanVienHienTai = NULL;
-    // ========================= Xu li chuc nang dang nhap ==================================
- 	system("cls");
+	// ========================= Xu li chuc nang dang nhap ==================================
+	system("cls");
 	string strUsername, strPassword;
 	int iCount = 0;
 	setColor(4);
@@ -104,26 +104,243 @@ int main() {
 				if (iOption == 4) break;
 				switch (iOption)
 				{
-				case 1:
-					//Them sach...
+				case 1: //Them sach...
+				{
+					system("cls");
+					cout << "1. Them Sach." << endl;
+					cout << "\t\t\t\t\t";
+					setColor(2);
+					cout << "NHAP THONG TIN SACH: " << endl;
+					cout << "\t\t\t";
+					setColor(7);
+
+					string maSach, tenSach, tenTacGia, nhaXuatBan, ngayNhapKho = getCurrentDate(), giaSach, namPhatHanh, soTrang;
+					int tinhTrangSach = 0;
+
+					// Nhập mã sách
+					cout << "Ma sach (MSxxxx): ";
+					while (getline(cin, maSach)) {
+						// Kiem tra khoang cach trong maSach
+						if (checkContainsSpacing(maSach)) {
+							setColor(4);
+							cout << "\t\t\t";
+							cout << "Ma Sach khong duoc co khoang trang, vui long nhap lai!" << endl;
+							setColor(7);
+							cout << "\t\t\t";
+							cout << "Ma Sach (MSxxxx): ";
+							continue;
+						}
+						// Kiem tra tinh hop le cua ma sach
+						if (maSach.substr(0, 2) != "MS" || !isDigit(maSach.substr(2, 4))) {
+							setColor(4);
+							cout << "\t\t\t";
+							cout << "Ma Sach phai theo dinh dang (MSxxxx) \n\t\t\tVoi xxxx la 4 so tu nhien! " << endl;
+							setColor(7);
+							cout << "\t\t\t";
+							cout << "Ma Sach (MSxxxx): ";
+							continue;
+						}
+						// Kiem tra ma sach du 6 ki tu
+						if (maSach.length() == 6) {
+							break;
+						}
+						setColor(4);
+						cout << "\t\t\t";
+						cout << "Vui long nhap Ma Sach voi du 6 ki tu!" << endl;
+						setColor(7);
+						cout << "\t\t\t";
+						cout << "Ma Sach (MSxxxx): ";
+					}
+
+					// Kiem tra ma sach da ton tai chua
+					Sach* SachTonTai = dsSach.timSach(maSach);
+
+					if (SachTonTai == NULL) {
+						cout << "\t\t\t";
+						cout << "Ten sach: ";
+						while (getline(cin, tenSach)) {
+							if (tenSach.length() != 0) {
+								break;
+							}
+							setColor(4);
+							cout << "\t\t\t";
+							cout << "Ten Sach khong duoc de trong!!!\n";
+							setColor(7);
+							cout << "\t\t\t";
+							cout << "Ten sach: ";
+						}
+						cout << "\t\t\tTen tac gia: ";
+						while (getline(cin, tenTacGia)) {
+							if (tenTacGia.length() != 0) {
+								break;
+							}
+							setColor(4);
+							cout << "\t\t\t";
+							cout << "Ten Tac Gia khong duoc de trong!!!\n";
+							setColor(7);
+							cout << "\t\t\t";
+							cout << "Ten tac gia: ";
+						}
+						cout << "\t\t\tNha xuat ban: ";
+						while (getline(cin, nhaXuatBan)) {
+							if (nhaXuatBan.length() != 0) {
+								break;
+							}
+							setColor(4);
+							cout << "\t\t\t";
+							cout << "Nha Xuat Ban khong duoc de trong!!!\n";
+							setColor(7);
+							cout << "\t\t\t";
+							cout << "Nha xuat ban: ";
+						}
+						cout << "\t\t\tGia sach: ";
+						while (getline(cin, giaSach)) {
+							if (giaSach.length() == 0)
+							{
+								setColor(4);
+								cout << "\t\t\t";
+								cout << "Gia sach khong duoc de trong!!!\n";
+								setColor(7);
+								cout << "\t\t\t";
+								cout << "Gia sach: ";
+								continue;
+							}
+							if (checkContainsSpacing(giaSach)) {
+								setColor(4);
+								cout << "\t\t\t";
+								cout << "Gia sach khong duoc co khoang trang, vui long nhap lai!" << endl;
+								setColor(7);
+								cout << "\t\t\tGia sach: ";
+								continue;
+							}
+							if (isDigit(giaSach)) {
+								break;
+							}
+							setColor(4);
+							cout << "\t\t\t";
+							cout << "Gia sach phai la so! Vui long nhap lai!" << endl;
+							setColor(7);
+							cout << "\t\t\tGia sach: ";
+						}
+						cout << "\t\t\tNam phat hanh: ";
+						while (getline(cin, namPhatHanh)) {
+							if (namPhatHanh.length() == 0) {
+								setColor(4);
+								cout << "\t\t\t";
+								cout << "Nam phat hanh khong duoc de trong!!!" << endl;
+								setColor(7);
+								cout << "\t\t\tNam phat hanh: ";
+								continue;
+							}
+							if (checkContainsSpacing(namPhatHanh)) {
+								setColor(4);
+								cout << "\t\t\t";
+								cout << "Nam phat hanh khong duoc co khoang trang, vui long nhap lai!" << endl;
+								setColor(7);
+								cout << "\t\t\tNam phat hanh: ";
+								continue;
+							}
+							if (isDigit(namPhatHanh)) {
+								break;
+							}
+							setColor(4);
+							cout << "\t\t\t";
+							cout << "Nam phat hanh phai la so! Vui long nhap lai!" << endl;
+							setColor(7);
+							cout << "\t\t\tNam phat hanh: ";
+						}
+						cout << "\t\t\tSo trang sach: ";
+						while (getline(cin, soTrang)) {
+							if (soTrang.length() == 0) {
+								setColor(4);
+								cout << "\t\t\t";
+								cout << "So trang sach khong duoc de trong!!!" << endl;
+								setColor(7);
+								cout << "\t\t\tSo trang sach: ";
+								continue;
+							}
+							if (checkContainsSpacing(soTrang)) {
+								setColor(4);
+								cout << "\t\t\t";
+								cout << "So trang sach khong duoc co khoang trang, vui long nhap lai!" << endl;
+								setColor(7);
+								cout << "\t\t\tSo trang sach: ";
+								continue;
+							}
+							if (isDigit(soTrang)) {
+								break;
+							}
+							setColor(4);
+							cout << "\t\t\t";
+							cout << "So trang sach phai la so! Vui long nhap lai!" << endl;
+							setColor(7);
+							cout << "\t\t\tSo trang sach: ";
+						}
+						cout << "\t\t\tNgay nhap kho: " << ngayNhapKho << endl;
+						cout << "\t\t\tTinh trang sach: " << tinhTrangSach << endl;
+
+						Sach sachMoi(maSach, tenSach, tenTacGia, nhaXuatBan, stoi(giaSach), stoi(namPhatHanh), stoi(soTrang), ngayNhapKho, tinhTrangSach);
+						dsSach.themSach(sachMoi);
+						setColor(2);
+						cout << "\t\t\tThem sach moi thanh cong!" << endl;
+						Node<Sach>* NodeSachMoi = new Node<Sach>(sachMoi);
+						dsSach.themVaoFile(NodeSachMoi);
+
+					}
+					else {
+						setColor(4);
+						cout << "\t\t\t";
+						cout << "Ma Sach da ton tai, vui long nhap lai!" << endl;
+					}
+
+					if (!isContinue("\t\t\t")) return 0;
 					break;
+				}
 				case 2:
 				{
 					system("cls");
 					cout << "2. Xoa Sach." << endl;
-					cout << "\t\t";
-					cout << "Nhap ma sach cua sach muon xoa: ";
+					cout << "\t\t\t\t\t";
+					setColor(2);
+					cout << "NHAP THONG TIN SACH: " << endl;
+					setColor(7);
+
+					cout << "\t\t\t";
+					cout << "Ma Sach: ";
 					string masach;
-					getline(cin,masach);
+					getline(cin, masach);
 					if (masach.length() != 6 || masach.substr(0, 2) != "MS" || !isDigit(masach.substr(2, 4))) {
 						setColor(4);
-						cout << "\t\tMa sach khong hop le\n";
+						cout << "\t\t\tMa sach khong hop le. vui long nhap lai!\n";
 					}
 					else {
-						dsSach.xoaSach(masach);
+						Sach* sach = dsSach.timSach(masach);
+						if (sach != NULL) {
+							setColor(2);
+							cout << "\t\t\tThong tin sach tim duoc: " << endl;
+							setColor(7);
+							cout << "\t\t\tTen Sach: " << sach->getTenSach() << endl;
+							cout << "\t\t\tTac Gia: " << sach->getTenTacGia() << endl;
+							cout << "\t\t\tNha Xuat Ban: " << sach->getNhaXuatBan() << endl;
+							cout << "\t\t\tGia sach: " << sach->getGiaSach() << endl;
+							cout << "\t\t\tNam phat hanh: " << sach->getNamPhatHanh() << endl;
+							cout << "\t\t\tSo trang: " << sach->getSoTrang() << endl;
+							cout << "\t\t\tNgay nhap kho: " << sach->getNgayNhapKho() << endl;
+							if (XacNhan("\t\t\t", "Ban co chac muon xoa")) {
+								dsSach.xoaSach(masach);
+								setColor(2);
+								cout << "\t\t\t";
+								cout << "Da xoa thanh cong vao luc " << getCurrentDate() << " !" << endl;
+								dsSach.updateFile();
+							}
+						}
+						else {
+							setColor(4);
+							cout << "\t\t\tKhong tim thay sach trong danh sach. Vui long kiem tra lai!" << endl;
+						}
 					}
 					setColor(7);
-					if (!isContinue("\t\t")) return 0;
+					if (!isContinue("\t\t\t")) return 0;
 					break;
 				}
 				case 3:
@@ -142,7 +359,7 @@ int main() {
 					exit(1);
 					break;
 				case 0:
-					if (XacNhan("\t\t\t\t","Thoat chuong trinh")) return 0;
+					if (XacNhan("\t\t\t\t", "Thoat chuong trinh")) return 0;
 					break;
 				default:
 					exit(1);
@@ -231,7 +448,7 @@ int main() {
 						}
 						setColor(4);
 						cout << "\t\t\t";
-						cout << "Vui long nhap du 12 so voi CCCD va 10 so voi MSSV!"<< endl;
+						cout << "Vui long nhap du 12 so voi CCCD va 10 so voi MSSV!" << endl;
 						setColor(7);
 						cout << "\t\t\t";
 						cout << "Nhap CCCD hoac MSSV: ";
@@ -242,7 +459,7 @@ int main() {
 					if (pReader == NULL) {
 						cout << "\t\t\t";
 						cout << "Nhap ho ten: ";
-						while(getline(cin, hoTen)) {
+						while (getline(cin, hoTen)) {
 							if (hoTen.length() >= 2) {
 								break;
 							}
@@ -255,7 +472,7 @@ int main() {
 						}
 						hoTen = convertUpperCase(hoTen);
 						thoiGianDangKi = getCurrentDate();
-						BanDoc *newReader = new BanDoc();
+						BanDoc* newReader = new BanDoc();
 						newReader->setMaBanDoc(maBanDoc);
 						newReader->setTenBanDoc(hoTen);
 						newReader->setTime(thoiGianDangKi);
@@ -370,7 +587,7 @@ int main() {
 
 						dsBanDoc.thongKeBanDoc();
 					}
-					
+
 					setColor(7);
 					if (!isContinue("")) return 0;
 					break;
@@ -384,7 +601,7 @@ int main() {
 			}
 			break;
 		case 0:
-			if (XacNhan("\t\t\t\t","Thoat chuong trinh")) return 0;
+			if (XacNhan("\t\t\t\t", "Thoat chuong trinh")) return 0;
 			break;
 		default:
 			return 0;

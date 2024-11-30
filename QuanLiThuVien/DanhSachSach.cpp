@@ -37,18 +37,50 @@ void DanhSachSach<Sach>::docFile() {
 *************************************************************************************************/
 
 template<class Sach>
-void DanhSachSach<Sach>::xuatFile() {
-	ofstream os("Sach.txt");
+void DanhSachSach<Sach>::updateFile() {
+	ofstream os("Sach.txt", ios::out);
 	if (!os.is_open()) {
 		cout << "Khong mo duoc file!!!" << endl;
 		return;
 	}
 	Node<Sach>* node = LinkedList<Sach>::getHead();
+	if (node == NULL) {
+		os.close();
+		return;
+	}
 	while (node != NULL) {
-		os << node << endl;
+		os << node->_data.toString() << endl;
 		node = node->_pNext;
 	}
 	os.close();
+}
+
+/***********************************************************************************************
+* @Description     Ghi nối thêm sách vào cuối file Sach.txt
+* @parameter       Tên file txt
+*************************************************************************************************/
+
+template<class Sach>
+void DanhSachSach<Sach>::themVaoFile(Node<Sach>* sachMoi) {
+	ofstream os("Sach.txt", ios::app);
+	if (!os.is_open()) {
+		cout << "Khong mo duoc file!!!" << endl;
+		return;
+	}
+	if (sachMoi != NULL) {
+		os << sachMoi->_data.toString() << endl;
+	}
+	os.close();
+}
+
+/***********************************************************************************************
+* @Description     Thêm sách vào danh sách
+* @parameter       Sách cần thêm
+*************************************************************************************************/
+
+template<class Sach>
+void DanhSachSach<Sach>::themSach(Sach sachMoi) {
+	LinkedList<Sach>::addTail(sachMoi);
 }
 
 /***********************************************************************************************
@@ -67,8 +99,8 @@ void DanhSachSach<Sach>::display() {
 		while (sach != NULL) {
 			sach->_data.display();
 			sach = sach->_pNext;
+			cout << "+---------+-----------------+-------------------+------------------+---------------+------------------+----------+------------------+-----------------+" << endl;
 		}
-		cout << "+---------+-----------------+-------------------+------------------+---------------+------------------+----------+------------------+-----------------+" << endl;
 	}
 }
 
@@ -79,28 +111,15 @@ void DanhSachSach<Sach>::display() {
 *************************************************************************************************/
 
 template<class Sach>
-Node<Sach>* DanhSachSach<Sach>::timSach(string masach) {
+Sach* DanhSachSach<Sach>::timSach(string masach) {
 	Node<Sach>* node = LinkedList<Sach>::getHead();
-	while (node != NULL && node->_data.getMaSach() != masach) {
+	while (node != NULL) {
+		if (node->_data.getMaSach() == masach) {
+			return &(node->_data);
+		}
 		node = node->_pNext;
 	}
-	return node;
-}
-
-/***********************************************************************************************
-* @Description     Tìm sách đứng trước sách cần tìm trong danh sách sách
-* @parameter       Node của sách cần tìm
-* @return          Trả về địa chỉ của Sách nếu tìm thấy, NULL nếu không tìm thấy
-*************************************************************************************************/
-
-template<class Sach>
-Node<Sach>* DanhSachSach<Sach>::timSachPre(Node<Sach>* sach) {
-	Node<Sach>* node = LinkedList<Sach>::getHead();
-	if (sach == node) return NULL;
-	while (node->_pNext != NULL && node->_pNext != sach) {
-		node = node->_pNext;
-	}
-	return node;
+	return NULL;
 }
 
 /***********************************************************************************************
@@ -111,17 +130,20 @@ Node<Sach>* DanhSachSach<Sach>::timSachPre(Node<Sach>* sach) {
 
 template<class Sach>
 void DanhSachSach<Sach>::xoaSach(string masach) {
-	Node<Sach>* sach = timSach(masach);
-	setColor(4);
-	if (sach->_data.getTinhTrangSach() != 0) {
-		cout << "\t\tKhong the xoa sach do sach dang duoc muon!" << endl;
-		return;
+	Node<Sach>* pNode = LinkedList<Sach>::getHead();
+	while (pNode != NULL) {
+		if (pNode->_data.getMaSach() == masach) {
+			if (pNode->_data.getTinhTrangSach() != 0) {
+				cout << "\t\tKhong the xoa sach do sach dang duoc muon!" << endl;
+				return;
+			}
+			else {
+				LinkedList<Sach>::remove(pNode);
+				setColor(2);
+				return;
+			}
+		}
+		pNode = pNode->_pNext;
 	}
-	if (sach == NULL) {
-		cout << "\t\tKhong co sach trong danh sach!" << endl;
-		return;
-	}
-	LinkedList<Sach>::remove(sach);
-	setColor(2);
-	cout << "\t\tDa xoa sach thanh cong." << endl;
+	cout << "\t\tKhong co sach trong danh sach!" << endl;
 }
