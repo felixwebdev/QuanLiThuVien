@@ -133,15 +133,9 @@ void DanhSachSach<Sach>::xoaSach(string masach) {
 	Node<Sach>* pNode = LinkedList<Sach>::getHead();
 	while (pNode != NULL) {
 		if (pNode->_data.getMaSach() == masach) {
-			if (pNode->_data.getTinhTrangSach() != 0) {
-				cout << "\t\tKhong the xoa sach do sach dang duoc muon!" << endl;
-				return;
-			}
-			else {
-				LinkedList<Sach>::remove(pNode);
-				setColor(2);
-				return;
-			}
+			LinkedList<Sach>::remove(pNode);
+			setColor(2);
+			return;
 		}
 		pNode = pNode->_pNext;
 	}
