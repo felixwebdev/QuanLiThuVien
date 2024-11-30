@@ -681,3 +681,78 @@ bool isContinue(string ntab) {
 	if (c == 27) return 0;
 	return 1;
 }
+
+/********************************************
+* @Description Hàm thêm một số ngày vào một ngày cụ thể.
+* @parameter day Ngày ban đầu.
+* @parameter month Tháng ban đầu.
+* @parameter year Năm ban đầu. 
+* @parameter daysToAdd Số ngày cần thêm vào.
+* @return Trả về một chuỗi biểu diễn ngày mới dưới định dạng "dd/mm/yyyy".
+********************************************/
+
+string addDaysToDate(int day, int month, int year, int addDays) {
+	tm date = { 0 };
+	date.tm_mday = day;
+	date.tm_mon = month - 1; 
+	date.tm_year = year - 1900;
+
+	time_t rawTime = mktime(&date);
+	rawTime += addDays * 24 * 3600; 
+
+	tm* newDate = localtime(&rawTime);
+	stringstream result;
+	result << setfill('0') << setw(2) << newDate->tm_mday << "/"
+		<< setfill('0') << setw(2) << (newDate->tm_mon + 1) << "/"
+		<< (newDate->tm_year + 1900);
+	return result.str();
+}
+
+/********************************************
+* @Description Hàm kiểm tra xem mã sách có tồn tại trong file Sach.txt hay không
+* @parameter maSach: Một chuỗi chứa mã sách cần kiểm tra
+* @return Trả về true nếu mã sách tồn tại, ngược lại trả về false
+********************************************/
+
+bool kiemTraSachTonTai(const string& maSach) {
+	ifstream file("Sach.txt"); 
+	string line;
+
+	while (getline(file, line)) {
+		
+		stringstream ss(line);
+		string maSachTu ;
+		getline(ss, maSachTu, '|'); 
+
+		if (maSachTu == maSach) { 
+			file.close();
+			return true; 
+		}
+	}
+	file.close();
+	return false; 
+}
+
+/********************************************
+* @Description Hàm kiểm tra xem mã bạn đọc có tồn tại trong file BanDoc.txt hay không
+* @parameter maBanDoc: Một chuỗi chứa mã bạn đọc cần kiểm tra
+* @return Trả về true nếu mã bạn đọc tồn tại, ngược lại trả về false
+********************************************/
+
+bool kiemTraBanDocTonTai(const string& maBanDoc) {
+	ifstream file("BanDoc.txt"); 
+	string line;
+
+	while (getline(file, line)) {
+		stringstream ss(line);
+		string maBanDocTuDòng;
+		getline(ss, maBanDocTuDòng, '|'); 
+
+		if (maBanDocTuDòng == maBanDoc) { 
+			file.close();
+			return true; 
+		}
+	}
+	file.close();
+	return false; 
+}
