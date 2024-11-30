@@ -681,3 +681,29 @@ bool isContinue(string ntab) {
 	if (c == 27) return 0;
 	return 1;
 }
+
+/********************************************
+* @Description Hàm thêm một số ngày vào một ngày cụ thể.
+* @parameter day Ngày ban đầu.
+* @parameter month Tháng ban đầu.
+* @parameter year Năm ban đầu. 
+* @parameter daysToAdd Số ngày cần thêm vào.
+* @return Trả về một chuỗi biểu diễn ngày mới dưới định dạng "dd/mm/yyyy".
+********************************************/
+
+string addDaysToDate(int day, int month, int year, int addDays) {
+	tm date = { 0 };
+	date.tm_mday = day;
+	date.tm_mon = month - 1; 
+	date.tm_year = year - 1900;
+
+	time_t rawTime = mktime(&date);
+	rawTime += addDays * 24 * 3600; 
+
+	tm* newDate = localtime(&rawTime);
+	stringstream result;
+	result << setfill('0') << setw(2) << newDate->tm_mday << "/"
+		<< setfill('0') << setw(2) << (newDate->tm_mon + 1) << "/"
+		<< (newDate->tm_year + 1900);
+	return result.str();
+}
