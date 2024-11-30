@@ -35,3 +35,6 @@ int subMenuPhieuMuon();
 int subMenuBanDoc();
 bool XacNhan(string tab, string mess);
 bool isContinue(string ntab);
+string addDaysToDate(int day, int month, int year, int addDays);
+bool kiemTraSachTonTai(const string& maSach);
+bool kiemTraBanDocTonTai(const string& maBanDoc);
