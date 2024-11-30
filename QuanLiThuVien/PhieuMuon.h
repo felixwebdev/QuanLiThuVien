@@ -1,14 +1,15 @@
 #pragma once
 #include "Header.h"
 
+
 class PhieuMuon {
 private:
 	int SoPhieuMuon;
 	static int MaPhieuMuon;
 	string MaBanDoc;
 	string MaSach;
-	long NgayMuon;
-	long NgayTra;
+	string NgayMuon;
+	string NgayTra;
 	int TinhTrangPhieuMuon;
 public:
 	PhieuMuon(string MBD = "", string MS = "");
@@ -16,15 +17,14 @@ public:
 	static int getMaPhieuMuon();
 	string getMaBanDoc();
 	string getMaSach();
-	long getNgayMuon();
-	long getNgayTra();
+	string getNgayMuon();
+	string getNgayTra();
 	int getTinhTrangPhieuMuon();
 
-	//void setSoPhieuMuon(int i);
 	void setMaBanDoc(string s);
 	void setMaSach(string s);
-	void setNgayMuon(long dt);
-	void setNgayTra(long dt);
+	void setNgayMuon(string ngayMuon);
+	void setNgayTra(string ngayTra);
 	void setTinhTrangPhieu(int i);
 	void traSach();
 	void xuat();
