@@ -22,6 +22,7 @@ void DanhSachPhieuMuon<PhieuMuon>::docFile(string fn) {
 		while (getline(ss, tmp, '|')) {
 			v.push_back(tmp);
 		}
+
 		if (v.size() < 6) continue; 
 		int maPhieu = stoi(v[0]);
 		string maBanDoc = v[1];
@@ -161,7 +162,7 @@ void DanhSachPhieuMuon<PhieuMuon>::muon() {
 		cout << "\t\t\t\tSach da duoc muon boi nguoi khac!" << endl;
 	}
 	else {
-		PhieuMuon phieuMuon(maBanDoc, maSach);
+		PhieuMuon phieuMuon(maBanDoc, maSach, LinkedList<PhieuMuon>::getSize() + 1);
 		LinkedList<PhieuMuon>::addTail(phieuMuon);
 		setColor(2);
 		cout << "\t\t\t\tMuon sach thanh cong!" << endl;
