@@ -93,7 +93,7 @@ void PhieuMuon::xuat() {
         cerr << "Lỗi: Ngày trả không hợp lệ!" << endl;
         return; 
     }
-
+    setColor(7);
     cout << "| " << setw(14) << left << MaPhieu
         << "| " << setw(14) << left << MaBanDoc
         << "| " << setw(14) << left << MaSach
@@ -107,13 +107,13 @@ void PhieuMuon::xuat() {
         << "" << setw(5) << left << ""
         << "| " << setw(14) << left;
     if (TinhTrangPhieuMuon == 1) {
-        setColor(4);
+        setColor(7);
         cout << "Dang muon";
     }
     else {
-        setColor(2);
+        setColor(7);
         cout << "Da tra";
     }
-    setColor(2);
+    setColor(7);
     cout << "|" << endl;
 }
