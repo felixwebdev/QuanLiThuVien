@@ -24,7 +24,7 @@ public:
 	void setMaSach(string masach);
 	void setNgayMuon(string ngayMuon);
 	void setNgayTra(string ngayTra);
-	void setTinhTrangPhieu(int tinhtrangsach);
+	void setTinhTrangPhieuMuon(int tinhtrangsach);
 	void traSach();
 	void xuat();
 };
