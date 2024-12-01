@@ -90,8 +90,6 @@ void DanhSachPhieuMuon<PhieuMuon>::xuatConsole() {
 		cout << "+---------------+---------------+---------------+---------------+---------------+---------------+" << endl;
 	}
 	xuatFile("PhieuMuon.txt");
-	system("pause");
-	system("cls");
 }
 
 /***********************************************************************************************
@@ -114,10 +112,9 @@ bool DanhSachPhieuMuon<PhieuMuon>::kiemTra(const string& st) {
 * @Description     Xử lí tháo tác mượn sách và tạo phiếu mượn
 *************************************************************************************************/
 template<class PhieuMuon>
-void DanhSachPhieuMuon<PhieuMuon>::muon() {
+void DanhSachPhieuMuon<PhieuMuon>::muon(DanhSachSach<Sach>& dsSach) {
 	Node<PhieuMuon>* tmp = LinkedList<PhieuMuon>::getHead();
 	string maSach, maBanDoc;
-	int cnt =0;
 	do {
 		setColor(7);
 		cout << "\n\n\t\t\t\tNhap ma sach (MSxxxx):  ";
@@ -140,6 +137,7 @@ void DanhSachPhieuMuon<PhieuMuon>::muon() {
 		setColor(4);
 		cout << "\t\t\t\tVui long nhap Ma Sach voi du 6 ki tu!" << endl;
 		setColor(7);
+		if (!isContinue("\t\t\t")) return;
 	} while (!kiemTra(maSach));
 
 
@@ -179,24 +177,25 @@ void DanhSachPhieuMuon<PhieuMuon>::muon() {
 		setColor(7);
 		cout << "\t\t\t\tMuon sach thanh cong!" << endl;
 
-		DanhSachSach<Sach> dsSach;
-		dsSach.docFile();
+
 		Sach* sach = dsSach.timSach(maSach);
 		if (sach != NULL) {
 			sach->setTinhTrangSach(1); 
 			dsSach.updateFile();
 		}
-		dsSach.docFile();
+
 
 		xuatFile("PhieuMuon.txt");
 	}
 }
 
+
+
 /***********************************************************************************************
 * @Description     Xử lí tháo tác trả sách và xóa phiếu mượn
 *************************************************************************************************/
 template<class PhieuMuon>
-void DanhSachPhieuMuon<PhieuMuon>::tra() {
+void DanhSachPhieuMuon<PhieuMuon>::tra(DanhSachSach<Sach>& dsSach) {
 	string soPhieuMuon;
 	setColor(7);
 	cout << "\n\t\t\t\tNhap so phieu muon: ";
@@ -204,9 +203,9 @@ void DanhSachPhieuMuon<PhieuMuon>::tra() {
 	if (soPhieuMuon.empty() || !all_of(soPhieuMuon.begin(), soPhieuMuon.end(), isdigit)) {
 
 		cout << "\t\t\t\tSo phieu muon khong hop le!" << endl;
-		system("pause");
-		system("cls");
+		if (!isContinue("\t\t\t")) return;
 		return;
+		
 	}
 	bool found = false;
 	Node<PhieuMuon>* tmp = LinkedList<PhieuMuon>::getHead();
@@ -215,20 +214,17 @@ void DanhSachPhieuMuon<PhieuMuon>::tra() {
 		if (tmp->_data.getMaPhieu() == SPM) {
 			if (tmp->_data.getTinhTrangPhieuMuon() == 0) {
 				cout << "\t\t\t\tSach dang khong ai muon!" << endl;
-				system("pause");
-				system("cls");
+				if (!isContinue("\t\t\t")) return;
 				return;
 			}
 			tmp->_data.setTinhTrangPhieuMuon(0);
-			DanhSachSach<Sach> dsSach;
-			dsSach.docFile(); 
 			Sach* sach = dsSach.timSach(tmp->_data.getMaSach());
 			if (sach != NULL) {
 				sach->setTinhTrangSach(0); 
 				dsSach.updateFile();     
 			}
 			cout << "\t\t\t\tTra sach thanh cong!" << endl;
-			dsSach.docFile();
+
 			found = true;
 			break;
 		}
@@ -242,8 +238,9 @@ void DanhSachPhieuMuon<PhieuMuon>::tra() {
 		cout << tmp->_data.getTinhTrangPhieuMuon();
 		xuatFile("PhieuMuon.txt");
 	}
-	system("pause");
 	system("cls");
 }
+
+
 
 
