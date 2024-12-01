@@ -68,7 +68,7 @@ void PhieuMuon::setNgayTra(string ngayTra) {
     NgayTra = ngayTra; 
 }
 
-void PhieuMuon::setTinhTrangPhieu(int tinhtrangphieu) {
+void PhieuMuon::setTinhTrangPhieuMuon(int tinhtrangphieu) {
     TinhTrangPhieuMuon = tinhtrangphieu;
 }
 
