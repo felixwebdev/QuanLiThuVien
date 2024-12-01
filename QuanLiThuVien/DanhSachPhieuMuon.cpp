@@ -22,8 +22,24 @@ void DanhSachPhieuMuon<PhieuMuon>::docFile(string fn) {
 		while (getline(ss, tmp, '|')) {
 			v.push_back(tmp);
 		}
-		if (v.size() < 4) continue;
-		PhieuMuon phieuMuon(v[1], v[2], LinkedList<PhieuMuon>::getSize() + 1, stoi(v[3]));
+
+		if (v.size() < 6) continue; 
+		int maPhieu = stoi(v[0]);
+		string maBanDoc = v[1];
+		string maSach = v[2];
+		string ngayMuon = v[3];
+		string ngayTra = v[4];
+		int tinhTrangPhieuMuon = stoi(v[5]);
+
+		if (maPhieu > PhieuMuon::getSoPhieuMuon()) {
+			PhieuMuon::setSoPhieuMuon(maPhieu); 
+		}
+		PhieuMuon phieuMuon(maBanDoc, maSach);
+		phieuMuon.setMaPhieu(maPhieu); 
+		phieuMuon.setNgayMuon(ngayMuon);
+		phieuMuon.setNgayTra(ngayTra);
+		phieuMuon.setTinhTrangPhieu(tinhTrangPhieuMuon);
+
 		LinkedList<PhieuMuon>::addTail(phieuMuon);
 	}
 	is.close();
@@ -46,9 +62,10 @@ void DanhSachPhieuMuon<PhieuMuon>::xuatFile(string fn) {
 		os << node->_data.getMaPhieu() << "|"
 			<< node->_data.getMaBanDoc() << "|"
 			<< node->_data.getMaSach() << "|"
+			<< node->_data.getNgayMuon() << "|"
+			<< node->_data.getNgayTra() << "|"
 			<< node->_data.getTinhTrangPhieuMuon() << endl;
 		node = node->_pNext;
-		
 	}
 	os.close();
 }
