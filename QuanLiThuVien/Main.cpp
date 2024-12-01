@@ -1,4 +1,4 @@
-﻿#include "Header.h"
+#include "Header.h"
 #include "BanDoc.h"
 #include "NhanVien.h"
 #include "Sach.h"
@@ -388,20 +388,21 @@ int main() {
 					//Them phieu muon...
 					system("cls");
 					setColor(4);
-					dsPhieuMuon.muon();
-					system("pause");
+					dsPhieuMuon.muon(dsSach);
+					if (!isContinue("\t\t\t")) return 0;
 					system("cls");
 					break;
 				case 2:
 					//Xoa phieu muon....
 					system("cls");
-					dsPhieuMuon.tra();
+					dsPhieuMuon.tra(dsSach);
 					break;
 				case 3:
 					//Thong ke phieu muon....
 					system("cls");
 					setColor(4);
 					dsPhieuMuon.xuatConsole();
+					if (!isContinue("\t\t\t")) return 0;
 					break;
 				case 4:
 					exit(1);
