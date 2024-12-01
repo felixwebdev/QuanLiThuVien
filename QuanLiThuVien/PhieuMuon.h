@@ -4,7 +4,6 @@
 
 class PhieuMuon {
 private:
-	static int SoPhieuMuon;
 	int MaPhieu;
 	string MaBanDoc;
 	string MaSach;
@@ -13,8 +12,7 @@ private:
 	int TinhTrangPhieuMuon;
 public:
 	PhieuMuon(const PhieuMuon& p);
-	PhieuMuon(string MBD = "", string MS = "");
-	static int getSoPhieuMuon();
+	PhieuMuon(string mabandoc = "", string masach = "", int sophieumuon = 1, int tinhtrangphieumuon = 1);
 	int getMaPhieu();
 	string getMaBanDoc();
 	string getMaSach();
@@ -22,11 +20,11 @@ public:
 	string getNgayTra();
 	int getTinhTrangPhieuMuon();
 
-	void setMaBanDoc(string s);
-	void setMaSach(string s);
+	void setMaBanDoc(string mabandoc);
+	void setMaSach(string masach);
 	void setNgayMuon(string ngayMuon);
 	void setNgayTra(string ngayTra);
-	void setTinhTrangPhieu(int i);
+	void setTinhTrangPhieu(int tinhtrangsach);
 	void traSach();
 	void xuat();
 };

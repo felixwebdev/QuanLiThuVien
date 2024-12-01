@@ -9,8 +9,8 @@ PhieuMuon::PhieuMuon(const PhieuMuon& p) {
 	TinhTrangPhieuMuon = p.TinhTrangPhieuMuon;
 }
 
-PhieuMuon::PhieuMuon(string MBD, string MS)
-    : MaBanDoc(MBD), MaSach(MS), TinhTrangPhieuMuon(1){
+PhieuMuon::PhieuMuon(string mabandoc, string masach, int sophieumuon, int tinhtrangphieumuon)
+    : MaBanDoc(mabandoc), MaSach(masach), TinhTrangPhieuMuon(tinhtrangphieumuon){
     NgayMuon = getCurrentDate();
     int day, month, year;
     int result = sscanf(NgayMuon.c_str(), "%d/%d/%d", &day, &month, &year);
@@ -24,25 +24,58 @@ PhieuMuon::PhieuMuon(string MBD, string MS)
     }
 
     NgayTra = addDaysToDate(day, month, year, 7); 
-    MaPhieu = ++SoPhieuMuon;
+    MaPhieu = sophieumuon;
 
 }
 
-int PhieuMuon::SoPhieuMuon = 0;
-int PhieuMuon::getSoPhieuMuon() { return SoPhieuMuon; }
-int PhieuMuon::getMaPhieu() { return MaPhieu; }
-string PhieuMuon::getMaBanDoc() { return MaBanDoc; }
-string PhieuMuon::getMaSach() { return MaSach; }
-string PhieuMuon::getNgayMuon() { return NgayMuon; }
-string PhieuMuon::getNgayTra() { return NgayTra; }
-int PhieuMuon::getTinhTrangPhieuMuon() { return TinhTrangPhieuMuon; }
+int PhieuMuon::getMaPhieu() {
+    return MaPhieu;
+}
 
-void PhieuMuon::setMaBanDoc(string s) { MaBanDoc = s; }
-void PhieuMuon::setMaSach(string s) { MaSach = s; }
-void PhieuMuon::setNgayMuon(string ngayMuon) { NgayMuon = ngayMuon; }
-void PhieuMuon::setNgayTra(string ngayTra) { NgayTra = ngayTra; }
-void PhieuMuon::setTinhTrangPhieu(int i) { TinhTrangPhieuMuon = i; }
-void PhieuMuon::traSach() { TinhTrangPhieuMuon = 0; }  
+string PhieuMuon::getMaBanDoc() {
+    return MaBanDoc; 
+}
+
+string PhieuMuon::getMaSach() {
+    return MaSach;
+}
+
+string PhieuMuon::getNgayMuon() { 
+    return NgayMuon; 
+}
+
+string PhieuMuon::getNgayTra() {
+    return NgayTra; 
+}
+
+int PhieuMuon::getTinhTrangPhieuMuon() {
+    return TinhTrangPhieuMuon;
+}
+
+void PhieuMuon::setMaBanDoc(string mabandoc) {
+    MaBanDoc = mabandoc; 
+}
+
+void PhieuMuon::setMaSach(string masach) {
+    MaSach = masach; 
+}
+
+void PhieuMuon::setNgayMuon(string ngayMuon) {
+    NgayMuon = ngayMuon;
+}
+
+void PhieuMuon::setNgayTra(string ngayTra) {
+    NgayTra = ngayTra; 
+}
+
+void PhieuMuon::setTinhTrangPhieu(int tinhtrangphieu) {
+    TinhTrangPhieuMuon = tinhtrangphieu;
+}
+
+void PhieuMuon::traSach() { 
+    TinhTrangPhieuMuon = 0;
+}  
+
 void PhieuMuon::xuat() {
     int dayMuon, monthMuon, yearMuon;
     int resultMuon = sscanf(NgayMuon.c_str(), "%d/%d/%d", &dayMuon, &monthMuon, &yearMuon);

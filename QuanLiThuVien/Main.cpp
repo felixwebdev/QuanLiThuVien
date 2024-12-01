@@ -332,11 +332,17 @@ int main() {
 							cout << "\t\t\tSo trang: " << sach->getSoTrang() << endl;
 							cout << "\t\t\tNgay nhap kho: " << sach->getNgayNhapKho() << endl;
 							if (XacNhan("\t\t\t", "Ban co chac muon xoa")) {
-								dsSach.xoaSach(masach);
-								setColor(2);
-								cout << "\t\t\t";
-								cout << "Da xoa thanh cong vao luc " << getCurrentDate() << " !" << endl;
-								dsSach.updateFile();
+								if (sach->getTinhTrangSach() == 0) {
+									dsSach.xoaSach(masach);
+									setColor(2);
+									cout << "\t\t\t";
+									cout << "Da xoa thanh cong vao luc " << getCurrentDate() << " !" << endl;
+									dsSach.updateFile();
+								}
+								else {
+									setColor(4);
+									cout << "\t\t\tKhong the xoa sach do sach dang duoc muon!" << endl;
+								}
 							}
 						}
 						else {
